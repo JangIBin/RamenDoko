@@ -2,7 +2,7 @@ import React from 'react'
 import { useEffect, useMemo, useState } from "react";
 import axios from 'axios';
 
-import { GoogleMap, useLoadScript, Marker, InfoWindow } from "@react-google-maps/api";
+import { GoogleMap, useLoadScript, Marker, InfoWindow, Circle } from "@react-google-maps/api";
 import usePlacesAutocomplete, {  getGeocode, getLatLng } from 'use-places-autocomplete';
 import { Combobox, ComboboxInput, ComboboxPopover, ComboboxList, ComboboxOption } from '@reach/combobox';
 
@@ -21,8 +21,10 @@ export const fetchSearchData = async() =>{
     return await hotpepper.get('',{
         params: {
             key:KEY,
-            large_area:'Z011',
-            format: 'json'  
+            // large_area:'Z011',
+            keyword: 'ラーメン',
+            count: 20,
+            format: 'json'
         }
     })
 }
@@ -46,6 +48,7 @@ function Home() {
 function Map() {
   const [shop, setShop] = useState();
   const [selected, setSelected] = useState(null);
+  const [markers, setMarkers] = React.useState([]);
 
   const center = useMemo(() => ({lat:35.652832, lng:139.839478}), []);
 
@@ -95,6 +98,17 @@ function Map() {
           />
           ))
         }
+        <Marker 
+          position={center}
+          icon={{
+            url: require('../assets/image/user.png'),
+            scaledSize: new window.google.maps.Size(30, 30),
+            origin: new window.google.maps.Point(0, 0),
+            anchor: new window.google.maps.Point(15, 15),
+          }}
+        />
+
+        <Circle center={center} radius={10000} />
 
         {selected ? (
           <InfoWindow 
