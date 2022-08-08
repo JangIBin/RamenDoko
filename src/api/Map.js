@@ -43,6 +43,7 @@ function Map() {
   useEffect(() =>{
     fetchSearchData().then((res) => {
         setShop(res.data.results.shop);
+        console.log(res.data.results)
         console.log(res.data.results.shop)
         // console.log(res.data.results.shop)
     })
@@ -54,12 +55,11 @@ function Map() {
       center={center}
       mapContainerStyle={containerStyle}
     >
-      {/* {
-        shop.map((index) => (
-          <Marker key={index} position={{lat:shop.lat, lng:shop.lng}} />
+      { shop &&
+        shop.map((item, index) => (
+          <Marker key={index} position={{lat:item.lat, lng:item.lng}} />
         ))
-      } */}
-      <Marker position={center} />
+      }
     </GoogleMap>
   )
   
