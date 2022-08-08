@@ -49,6 +49,16 @@ function Map() {
 
   const center = useMemo(() => ({lat:35.652832, lng:139.839478}), []);
 
+  const mapRef = React.useRef();
+  const onMapLoad = React.useCallback((map) => {
+    mapRef.current = map;
+  })
+
+  const panTo = React.useCallback(({lat, lng}) => {
+    mapRef.current.panTo({lat, lng});
+    mapRef.current.setZoom(10);
+  }, []);
+
   useEffect(() =>{
     fetchSearchData().then((res) => {
         setShop(res.data.results.shop);
@@ -61,7 +71,8 @@ function Map() {
   return (
     <div>
 
-      <Search />
+      <Search panTo={panTo} />
+      <Locate panTo={panTo} />
 
       <GoogleMap
         zoom={10}
@@ -70,6 +81,7 @@ function Map() {
         onClick={(event) => {
           console.log(event);
         }}
+        onLoad={onMapLoad}
       >
         { shop &&
           shop.map((item, index) => (
@@ -103,13 +115,31 @@ function Map() {
   
 }
 
-function Search() {
+function Locate({ panTo }) {
+  return (
+    <button className="locate" onClick={() => {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          panTo({
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          })
+        }, 
+        () => null, 
+      );
+    }}>
+      LocateMe!!!
+    </button>
+  );
+}
+
+function Search({ panTo }) {
   const {
     ready, 
     value, 
     suggestions: {status, data}, 
     setValue, 
-    clearSuggetions
+    clearSuggestions,
   } = usePlacesAutocomplete({
     requestOptions: {
       location: { lat: () => 35.652832, lng: () => 139.839478 },
@@ -119,9 +149,21 @@ function Search() {
 
   return (
     <div className='search'>
-      <Combobox onSelect={(address) => {
-        console.log(address);
-      }}
+      <Combobox 
+        onSelect={async (address) => {
+          setValue(address, false);
+          clearSuggestions();
+
+          try {
+            const results = await getGeocode({ address });
+            const { lat, lng } = await getLatLng(results[0]);
+            panTo({ lat, lng });
+          } catch (error) {
+            console.log(error);
+          }
+
+          // console.log(address);
+        }}
       >
         <ComboboxInput 
           value={value} 
@@ -132,10 +174,12 @@ function Search() {
           placeholder="Enter an address" 
         />
         <ComboboxPopover>
-          {status == "OK" && 
-            data.map(({id, description}) => (
-              <ComboboxOption key={id} value={description} />
-          ))}
+          <ComboboxList>
+            {status == "OK" && 
+              data.map(({id, description}) => (
+                <ComboboxOption key={id} value={description} />
+            ))}
+          </ComboboxList>
         </ComboboxPopover>
       </Combobox>
     </div>
