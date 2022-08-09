@@ -7,7 +7,6 @@ import usePlacesAutocomplete, {  getGeocode, getLatLng } from 'use-places-autoco
 import { Combobox, ComboboxInput, ComboboxPopover, ComboboxList, ComboboxOption } from '@reach/combobox';
 
 import "../assets/css/Map.css";
-import mapStyles from '../assets/css/mapStyles';
 
 // ホットペッパー　api
 const KEY = '6fca1552a5354f20';
@@ -24,6 +23,9 @@ export const fetchSearchData = async() =>{
             // large_area:'Z011',
             keyword: 'ラーメン',
             count: 20,
+            lat: 35.669220,
+            lng: 139.761457,
+            range: 3,
             format: 'json'
         }
     })
@@ -50,7 +52,7 @@ function Map() {
   const [selected, setSelected] = useState(null);
   const [markers, setMarkers] = React.useState([]);
 
-  const center = useMemo(() => ({lat:35.652832, lng:139.839478}), []);
+  const center = useMemo(() => ({lat:35.669220, lng:139.761457}), []);
 
   const mapRef = React.useRef();
   const onMapLoad = React.useCallback((map) => {
@@ -95,7 +97,7 @@ function Map() {
                   setSelected(item);
                   console.log(item);
               }}
-          />
+            />
           ))
         }
         <Marker 
@@ -108,7 +110,7 @@ function Map() {
           }}
         />
 
-        <Circle center={center} radius={10000} />
+        <Circle center={center} radius={1000} />
 
         {selected ? (
           <InfoWindow 
@@ -200,17 +202,5 @@ function Search({ panTo }) {
     
   );  
 }
-
-// const generateHouses = (position) => {
-//   const _houses = [];
-//   for (let i = 0; i < 100; i++) {
-//       const direction = Math.random() < 0.5 ? -2 : 2;
-//       _houses.push({
-//           lat: position.lat + Math.random() / direction,
-//           lng: position.lng + Math.random() / direction,
-//       });
-//   }
-//   return _houses;
-// };
 
 export default Home;
