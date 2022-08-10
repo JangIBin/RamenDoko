@@ -3,39 +3,10 @@ import { useEffect, useMemo, useState } from "react";
 import axios from 'axios';
 
 import { GoogleMap, useLoadScript, Marker, InfoWindow, Circle } from "@react-google-maps/api";
-import usePlacesAutocomplete, {  getGeocode, getLatLng } from 'use-places-autocomplete';
+import usePlacesAutocomplete, { getGeocode, getLatLng } from 'use-places-autocomplete';
 import { Combobox, ComboboxInput, ComboboxPopover, ComboboxList, ComboboxOption } from '@reach/combobox';
 
 import "../assets/css/Map.css";
-
-// ホットペッパー　api
-const KEY = '6fca1552a5354f20';
-
-const hotpepper = axios.create ({
-  baseURL: '/hotpepper/gourmet/v1'
-})
-
-export const fetchSearchData = async() =>{
-  //大エリアコード=Z011(東京)のお店を検索
-    return await hotpepper.get('',{
-        params: {
-            key:KEY,
-            // large_area:'Z011',
-            keyword: 'ラーメン',
-            count: 20,
-            lat: 35.669220,
-            lng: 139.761457,
-            range: 3,
-            format: 'json'
-        }
-    })
-}
-
-// Map
-const containerStyle = {
-  width: '100%',
-  height: '100vh'
-};
 
 function Home() {
   const { isLoaded } = useLoadScript({
@@ -47,10 +18,38 @@ function Home() {
   return <Map />;
 }
 
+// Map
+const containerStyle = {
+  width: '100%',
+  height: '100vh'
+};
+
 function Map() {
   const [shop, setShop] = useState();
   const [selected, setSelected] = useState(null);
-  const [markers, setMarkers] = React.useState([]);
+
+  // ホットペッパー　api
+  const KEY = '6fca1552a5354f20';
+
+  const hotpepper = axios.create ({
+    baseURL: '/hotpepper/gourmet/v1'
+  })
+
+  const fetchSearchData = async() =>{
+    //大エリアコード=Z011(東京)のお店を検索
+      return await hotpepper.get('',{
+          params: {
+              key:KEY,
+              // large_area:'Z011',
+              keyword: 'ラーメン',
+              count: 20,
+              lat: 35.669220,
+              lng: 139.761457,
+              range: 3,
+              format: 'json'
+          }
+      })
+  }
 
   const center = useMemo(() => ({lat:35.669220, lng:139.761457}), []);
 
@@ -61,15 +60,13 @@ function Map() {
 
   const panTo = React.useCallback(({lat, lng}) => {
     mapRef.current.panTo({lat, lng});
-    mapRef.current.setZoom(10);
+    mapRef.current.setZoom(14);
   }, []);
 
   useEffect(() =>{
     fetchSearchData().then((res) => {
         setShop(res.data.results.shop);
-        console.log(res.data.results)
         console.log(res.data.results.shop)
-        // console.log(res.data.results.shop)
     })
   },[])
 
@@ -79,8 +76,10 @@ function Map() {
       <Search panTo={panTo} />
       <Locate panTo={panTo} />
 
+      <SearchEx shop={shop} />
+
       <GoogleMap
-        zoom={10}
+        zoom={14}
         center={center}
         mapContainerStyle={containerStyle}
         onClick={(event) => {
@@ -120,15 +119,16 @@ function Map() {
               }}
           >
           <div>
-              <h2>{selected.access}</h2>
-              <p>address : selected.address</p>
+              <h2>{selected.name}</h2>
+              <img src={selected.logo_image} />
+              <p>address : {selected.address}</p>
+              <p>open : {selected.open}</p>
           </div>
-          </InfoWindow>):null
+          </InfoWindow>) : null
         }
       </GoogleMap>
     </div>
   )
-  
 }
 
 function Locate({ panTo }) {
@@ -158,8 +158,8 @@ function Search({ panTo }) {
     clearSuggestions,
   } = usePlacesAutocomplete({
     requestOptions: {
-      location: { lat: () => 35.652832, lng: () => 139.839478 },
-      radius: 200 * 1000,
+      location: { lat: () => 0, lng: () => 0 },
+      // radius: 200 * 1000,
     },
   });
 
@@ -177,7 +177,6 @@ function Search({ panTo }) {
           } catch (error) {
             console.log(error);
           }
-
           // console.log(address);
         }}
       >
@@ -191,7 +190,7 @@ function Search({ panTo }) {
         />
         <ComboboxPopover>
           <ComboboxList>
-            {status == "OK" && 
+            {status === "OK" && 
               data.map(({id, description}) => (
                 <ComboboxOption key={id} value={description} />
             ))}
@@ -202,5 +201,41 @@ function Search({ panTo }) {
     
   );  
 }
+
+function SearchEx({shop}) {
+  const [ filterShop, setFilterShop ] = useState([]);
+
+  const handlerFilter = (event) => {
+    const searchWord = event.target.value;
+    const newFilter = Object.values(shop).filter((value) => {
+      return value.address.toLowerCase().includes(searchWord.toLowerCase());
+    });
+    if(searchWord === '') {
+      setFilterShop([]);
+    } else {
+      setFilterShop(newFilter);
+    }
+  }
+
+  return (
+    <div className='SearchEx'>
+      <input 
+        type='text' 
+        placeholder='Enter address' 
+        onChange={handlerFilter}
+      />
+      {filterShop.length !== 0 && (
+        <div>
+          {filterShop.map((value, key) => {
+            return(
+              <div key={key} >{value.address}</div>
+            )
+          })}
+        </div>
+      )}
+    </div>
+  )
+}
+
 
 export default Home;
