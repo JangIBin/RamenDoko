@@ -169,7 +169,6 @@ function Search({ panTo }) {
         onSelect={async (address) => {
           setValue(address, false);
           clearSuggestions();
-
           try {
             const results = await getGeocode({ address });
             const { lat, lng } = await getLatLng(results[0]);
@@ -219,6 +218,15 @@ function SearchEx({shop}) {
 
   return (
     <div className='SearchEx'>
+
+      <Combobox>
+        <ComboboxInput />
+        <ComboboxPopover>
+          <ComboboxList>
+
+          </ComboboxList>
+        </ComboboxPopover>
+      </Combobox>
       <input 
         type='text' 
         placeholder='Enter address' 
