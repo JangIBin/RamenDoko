@@ -2,10 +2,11 @@ import React from 'react'
 import { useEffect, useMemo, useState } from "react";
 import axios from 'axios';
 
-import { GoogleMap, useLoadScript, Marker, InfoWindow, Circle } from "@react-google-maps/api";
+import { GoogleMap, useLoadScript, Marker, InfoWindow, Circle, MarkerClusterer } from "@react-google-maps/api";
 import usePlacesAutocomplete, { getGeocode, getLatLng } from 'use-places-autocomplete';
 import { Combobox, ComboboxInput, ComboboxPopover, ComboboxList, ComboboxOption } from '@reach/combobox';
 
+import "@reach/combobox/styles.css";
 import "../assets/css/Map.css";
 
 function Home() {
@@ -27,29 +28,10 @@ const containerStyle = {
 function Map() {
   const [shop, setShop] = useState();
   const [selected, setSelected] = useState(null);
+  const [ mapRange, setMapRange ] = useState(2);
 
   // ホットペッパー　api
   const KEY = '6fca1552a5354f20';
-
-  const hotpepper = axios.create ({
-    baseURL: '/hotpepper/gourmet/v1'
-  })
-
-  const fetchSearchData = async() =>{
-    //大エリアコード=Z011(東京)のお店を検索
-      return await hotpepper.get('',{
-          params: {
-              key:KEY,
-              // large_area:'Z011',
-              keyword: 'ラーメン',
-              count: 20,
-              lat: 35.669220,
-              lng: 139.761457,
-              range: 3,
-              format: 'json'
-          }
-      })
-  }
 
   const center = useMemo(() => ({lat:35.669220, lng:139.761457}), []);
 
@@ -64,19 +46,73 @@ function Map() {
   }, []);
 
   useEffect(() =>{
-    fetchSearchData().then((res) => {
+
+    const hotpepper = axios.create ({
+      baseURL: '/hotpepper/gourmet/v1'
+    })
+
+    const fetchSearchData = async(mapRange) =>{
+      //大エリアコード=Z011(東京)のお店を検索
+        return await hotpepper.get('',{
+            params: {
+                key:KEY,
+                // large_area:'Z011',
+                keyword: 'ラーメン',
+                count: 100,
+                lat: 35.669220,
+                lng: 139.761457,
+                range: mapRange,
+                format: 'json'
+            }
+        })
+    }
+
+    fetchSearchData(mapRange).then((res) => {
         setShop(res.data.results.shop);
         console.log(res.data.results.shop)
     })
-  },[])
+
+    // fetchDirections();
+  },[mapRange])
 
   return (
     <div>
 
       <Search panTo={panTo} />
       <Locate panTo={panTo} />
+      <button 
+        onClick={() => {
+          if(mapRange !== 1) {
+            setMapRange(1);
+          }
+          console.log(mapRange);
+      }}>300m</button>
+      <button onClick={() => {
+          if(mapRange !== 2) {
+            setMapRange(2);
+          }
+          console.log(mapRange);
+      }}>500m</button>
+      <button onClick={() => {
+          if(mapRange !== 3) {
+            setMapRange(3);
+          }
+          console.log(mapRange);
+      }}>1000m</button>
+      <button onClick={() => {
+          if(mapRange !== 4) {
+            setMapRange(4);
+          }
+          console.log(mapRange);
+      }}>2000m</button>
+      <button onClick={() => {
+          if(mapRange !== 5) {
+            setMapRange(5);
+          }
+          console.log(mapRange);
+      }}>3000m</button>
 
-      <SearchEx shop={shop} />
+      {/* <SearchEx shop={shop} /> */}
 
       <GoogleMap
         zoom={14}
@@ -87,18 +123,26 @@ function Map() {
         }}
         onLoad={onMapLoad}
       >
-        { shop &&
-          shop.map((item, index) => (
-            <Marker
-              key={index} 
-              position={{lat:item.lat, lng:item.lng}} 
-              onClick={() => {
-                  setSelected(item);
-                  console.log(item);
-              }}
-            />
-          ))
-        }
+
+        <MarkerClusterer>
+          {(clusterer) => 
+             shop &&
+              shop.map((item, index) => (
+                <Marker
+                  key={index} 
+                  position={{lat:item.lat, lng:item.lng}} 
+                  onClick={() => {
+                      setSelected(item);
+                      console.log(item);
+                      // console.log(directions);
+                  }}
+                  clusterer={clusterer}
+                />
+              ))
+          }
+
+        </MarkerClusterer>
+
         <Marker 
           position={center}
           icon={{
@@ -120,7 +164,7 @@ function Map() {
           >
           <div>
               <h2>{selected.name}</h2>
-              <img src={selected.logo_image} />
+              <img src={selected.photo.mobile.l} alt="img" />
               <p>address : {selected.address}</p>
               <p>open : {selected.open}</p>
           </div>
@@ -201,49 +245,6 @@ function Search({ panTo }) {
   );  
 }
 
-function SearchEx({shop}) {
-  const [ filterShop, setFilterShop ] = useState([]);
-
-  const handlerFilter = (event) => {
-    const searchWord = event.target.value;
-    const newFilter = Object.values(shop).filter((value) => {
-      return value.address.toLowerCase().includes(searchWord.toLowerCase());
-    });
-    if(searchWord === '') {
-      setFilterShop([]);
-    } else {
-      setFilterShop(newFilter);
-    }
-  }
-
-  return (
-    <div className='SearchEx'>
-
-      <Combobox>
-        <ComboboxInput />
-        <ComboboxPopover>
-          <ComboboxList>
-
-          </ComboboxList>
-        </ComboboxPopover>
-      </Combobox>
-      <input 
-        type='text' 
-        placeholder='Enter address' 
-        onChange={handlerFilter}
-      />
-      {filterShop.length !== 0 && (
-        <div>
-          {filterShop.map((value, key) => {
-            return(
-              <div key={key} >{value.address}</div>
-            )
-          })}
-        </div>
-      )}
-    </div>
-  )
-}
 
 
 export default Home;
