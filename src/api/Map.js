@@ -29,11 +29,15 @@ function Map() {
   const [shop, setShop] = useState();
   const [selected, setSelected] = useState(null);
   const [ mapRange, setMapRange ] = useState(2);
+  const [latLocate, setLatLocate] = useState();
+  const [lngLocate, setLngLocate] = useState();
 
   // ホットペッパー　api
   const KEY = '6fca1552a5354f20';
 
-  const center = useMemo(() => ({lat:35.669220, lng:139.761457}), []);
+  // 현재 위치 불러오는 값
+  // const center = useMemo(() => ({lat:latLocate, lng:lngLocate}), [latLocate, lngLocate]);
+    const center = useMemo(() => ({lat:35.669220, lng:139.761457}), []);
 
   const mapRef = React.useRef();
   const onMapLoad = React.useCallback((map) => {
@@ -42,10 +46,17 @@ function Map() {
 
   const panTo = React.useCallback(({lat, lng}) => {
     mapRef.current.panTo({lat, lng});
-    mapRef.current.setZoom(14);
   }, []);
 
+
   useEffect(() =>{
+
+    navigator.geolocation.getCurrentPosition((position) => {
+      setLatLocate(position.coords.latitude);
+      setLngLocate(position.coords.longitude);
+
+      console.log(position)
+    });
 
     const hotpepper = axios.create ({
       baseURL: '/hotpepper/gourmet/v1'
@@ -66,14 +77,14 @@ function Map() {
             }
         })
     }
-
     fetchSearchData(mapRange).then((res) => {
         setShop(res.data.results.shop);
         console.log(res.data.results.shop)
     })
 
-    // fetchDirections();
-  },[mapRange])
+    
+
+  },[latLocate, lngLocate, mapRange])
 
   return (
     <div>
@@ -131,6 +142,12 @@ function Map() {
                 <Marker
                   key={index} 
                   position={{lat:item.lat, lng:item.lng}} 
+                  icon={{
+                    url: require('../assets/image/ramen.png'),
+                    scaledSize: new window.google.maps.Size(35, 35),
+                    origin: new window.google.maps.Point(0, 0),
+                    anchor: new window.google.maps.Point(15, 15),
+                  }}
                   onClick={() => {
                       setSelected(item);
                       console.log(item);
@@ -184,6 +201,8 @@ function Locate({ panTo }) {
             lat: position.coords.latitude,
             lng: position.coords.longitude,
           })
+          console.log(panTo)
+          console.log(position)
         }, 
         () => null, 
       );
