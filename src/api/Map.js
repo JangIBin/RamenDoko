@@ -21,11 +21,11 @@ function Home() {
 
 // Map
 const containerStyle = {
-  width: '100%',
-  height: '100vh'
+  width: '100vw',
+  height: '100vh',
 };
 
-function Map() {
+function Map({props}) {
   const [shop, setShop] = useState();
   const [selected, setSelected] = useState(null);
   const [ mapRange, setMapRange ] = useState(2);
@@ -37,7 +37,8 @@ function Map() {
 
   // 현재 위치 불러오는 값
   // const center = useMemo(() => ({lat:latLocate, lng:lngLocate}), [latLocate, lngLocate]);
-    const center = useMemo(() => ({lat:35.669220, lng:139.761457}), []);
+
+  const center = useMemo(() => ({lat:35.669220, lng:139.761457}), []);
 
   const mapRef = React.useRef();
   const onMapLoad = React.useCallback((map) => {
@@ -48,6 +49,9 @@ function Map() {
     mapRef.current.panTo({lat, lng});
   }, []);
 
+  const sendData = () => {
+    props.setMobileShop(shop);
+  }
 
   useEffect(() =>{
 
@@ -67,7 +71,6 @@ function Map() {
         return await hotpepper.get('',{
             params: {
                 key:KEY,
-                // large_area:'Z011',
                 keyword: 'ラーメン',
                 count: 100,
                 lat: 35.669220,
@@ -82,57 +85,75 @@ function Map() {
         console.log(res.data.results.shop)
     })
 
-    
 
   },[latLocate, lngLocate, mapRange])
 
   return (
     <div>
 
-      <Search panTo={panTo} />
-      <Locate panTo={panTo} />
-      <button 
-        onClick={() => {
-          if(mapRange !== 1) {
-            setMapRange(1);
-          }
-          console.log(mapRange);
-      }}>300m</button>
-      <button onClick={() => {
-          if(mapRange !== 2) {
-            setMapRange(2);
-          }
-          console.log(mapRange);
-      }}>500m</button>
-      <button onClick={() => {
-          if(mapRange !== 3) {
-            setMapRange(3);
-          }
-          console.log(mapRange);
-      }}>1000m</button>
-      <button onClick={() => {
-          if(mapRange !== 4) {
-            setMapRange(4);
-          }
-          console.log(mapRange);
-      }}>2000m</button>
-      <button onClick={() => {
-          if(mapRange !== 5) {
-            setMapRange(5);
-          }
-          console.log(mapRange);
-      }}>3000m</button>
+      {/* <Search panTo={panTo} /> */}
 
-      {/* <SearchEx shop={shop} /> */}
+      <div className='header'>
+        {/* <img src='../assets/image/ramen.png' /> */}
+        <div className='hamburger'>
+          <input type="checkbox" id="check_box" />
+          <label htmlFor="check_box">
+            <span></span>
+            <span></span>
+            <span></span>
+          </label>
+          <div id="side_menu">
+            <div className='range_btn'>
+              <button 
+                onClick={() => {
+                  if(mapRange !== 1) {
+                    setMapRange(1);
+                  }
+                  console.log(mapRange);
+                }}>300m</button>
+              <button onClick={() => {
+                  if(mapRange !== 2) {
+                    setMapRange(2);
+                  }
+                  console.log(mapRange);
+              }}>500m</button>
+              <button onClick={() => {
+                  if(mapRange !== 3) {
+                    setMapRange(3);
+                  }
+                  console.log(mapRange);
+              }}>1000m</button>
+              <button onClick={() => {
+                  if(mapRange !== 4) {
+                    setMapRange(4);
+                  }
+                  console.log(mapRange);
+              }}>2000m</button>
+              <button onClick={() => {
+                  if(mapRange !== 5) {
+                    setMapRange(5);
+                  }
+                  console.log(mapRange);
+              }}>3000m</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <Locate panTo={panTo} className='locate' />
 
       <GoogleMap
-        zoom={14}
+        zoom={16}
         center={center}
         mapContainerStyle={containerStyle}
         onClick={(event) => {
           console.log(event);
+          setSelected(null);
         }}
         onLoad={onMapLoad}
+        options={{
+          fullscreenControl: false
+        }}
       >
 
         <MarkerClusterer>
@@ -170,7 +191,7 @@ function Map() {
           }}
         />
 
-        <Circle center={center} radius={1000} />
+        {/* <Circle center={center} radius={1000} /> */}
 
         {selected ? (
           <InfoWindow 
@@ -207,7 +228,7 @@ function Locate({ panTo }) {
         () => null, 
       );
     }}>
-      LocateMe!!!
+      
     </button>
   );
 }
