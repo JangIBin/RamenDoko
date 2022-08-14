@@ -6,6 +6,8 @@ import { GoogleMap, useLoadScript, Marker, InfoWindow, Circle, MarkerClusterer }
 import usePlacesAutocomplete, { getGeocode, getLatLng } from 'use-places-autocomplete';
 import { Combobox, ComboboxInput, ComboboxPopover, ComboboxList, ComboboxOption } from '@reach/combobox';
 
+import { FaAngleDown, FaTag, FaCompass } from "react-icons/fa";
+
 import "@reach/combobox/styles.css";
 import "../assets/css/Map.css";
 
@@ -21,14 +23,14 @@ function Home() {
 
 // Map
 const containerStyle = {
-  width: '100vw',
+  width: '100%',
   height: '100vh',
 };
 
 function Map({props}) {
   const [shop, setShop] = useState();
   const [selected, setSelected] = useState(null);
-  const [ mapRange, setMapRange ] = useState(2);
+  const [mapRange, setMapRange] = useState(2);
   const [latLocate, setLatLocate] = useState();
   const [lngLocate, setLngLocate] = useState();
 
@@ -89,54 +91,61 @@ function Map({props}) {
   },[latLocate, lngLocate, mapRange])
 
   return (
-    <div>
+    <div className='Map'>
 
       {/* <Search panTo={panTo} /> */}
 
-      <div className='header'>
-        {/* <img src='../assets/image/ramen.png' /> */}
-        <div className='hamburger'>
-          <input type="checkbox" id="check_box" />
-          <label htmlFor="check_box">
-            <span></span>
-            <span></span>
-            <span></span>
-          </label>
-          <div id="side_menu">
-            <div className='range_btn'>
+      <div className="container">
+        <input id="dropdown" type="checkbox" />
+        <label className="dropdownLabel" htmlFor="dropdown">
+          <FaTag className='cartIcon' />
+          <div>検索半径</div>
+          <FaAngleDown className="caretIcon" />
+        </label>
+        <div className="content">
+          <ul>
+            <li>
               <button 
-                onClick={() => {
-                  if(mapRange !== 1) {
-                    setMapRange(1);
-                  }
-                  console.log(mapRange);
-                }}>300m</button>
+                  onClick={() => {
+                    if(mapRange !== 1) {
+                      setMapRange(1);
+                    }
+                    console.log(mapRange);
+                  }}>300m</button>
+            </li>
+            <li>
               <button onClick={() => {
-                  if(mapRange !== 2) {
-                    setMapRange(2);
-                  }
-                  console.log(mapRange);
-              }}>500m</button>
+                    if(mapRange !== 2) {
+                      setMapRange(2);
+                    }
+                    console.log(mapRange);
+                }}>500m</button>
+            </li>
+            <li>
               <button onClick={() => {
-                  if(mapRange !== 3) {
-                    setMapRange(3);
-                  }
-                  console.log(mapRange);
-              }}>1000m</button>
+                    if(mapRange !== 3) {
+                      setMapRange(3);
+                    }
+                    console.log(mapRange);
+                }}>1000m</button>
+            </li>
+            <li>
               <button onClick={() => {
-                  if(mapRange !== 4) {
-                    setMapRange(4);
-                  }
-                  console.log(mapRange);
-              }}>2000m</button>
+                    if(mapRange !== 4) {
+                      setMapRange(4);
+                    }
+                    console.log(mapRange);
+                }}>2000m</button>
+            </li>
+            <li>
               <button onClick={() => {
-                  if(mapRange !== 5) {
-                    setMapRange(5);
-                  }
-                  console.log(mapRange);
-              }}>3000m</button>
-            </div>
-          </div>
+                    if(mapRange !== 5) {
+                      setMapRange(5);
+                    }
+                    console.log(mapRange);
+                }}>3000m</button>
+            </li>
+          </ul>
         </div>
       </div>
       
@@ -152,8 +161,11 @@ function Map({props}) {
         }}
         onLoad={onMapLoad}
         options={{
-          fullscreenControl: false
-        }}
+          fullscreenControl: false,
+          mapTypeControl: false,
+          zoomControl: false,
+          streetViewControl: false,
+        }}  
       >
 
         <MarkerClusterer>
@@ -200,15 +212,47 @@ function Map({props}) {
                   setSelected(null);
               }}
           >
-          <div>
-              <h2>{selected.name}</h2>
-              <img src={selected.photo.mobile.l} alt="img" />
-              <p>address : {selected.address}</p>
-              <p>open : {selected.open}</p>
+          <div className='window_wrap'>
+            <div className='window_title'>
+              <div>{selected.name}</div>
+            </div>
+            <div className='window_middle'>
+              <img src={selected.photo.mobile.s} alt="img" />
+              <div>
+                <b>住所</b>
+                <p>{selected.address}</p>
+              </div>
+            </div>
+            <div>
+              <b>営業時間</b>
+              <p>{selected.open}</p>
+            </div>
+            <div>
+              <b>近隣の駅</b>
+              <p>{selected.access}</p>
+            </div>
           </div>
           </InfoWindow>) : null
         }
+
+      
       </GoogleMap>
+
+      <div className='simplePage'>
+        <div className='simplePage_top'>
+          <FaAngleDown />
+        </div>
+        <div>
+          {
+            shop && shop.map((item, index) => (
+              <div key={index}>
+                {item.address}
+              </div>
+            ))
+          }
+        </div>
+      </div>
+      
     </div>
   )
 }
@@ -228,7 +272,7 @@ function Locate({ panTo }) {
         () => null, 
       );
     }}>
-      
+      <FaCompass className='locateIcon' />
     </button>
   );
 }
