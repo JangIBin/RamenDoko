@@ -1,13 +1,17 @@
 import React from 'react'
-import './App.css';
+import { Route, Routes } from 'react-router-dom';
+import './App.css'; 
 
 import Map from "./api/Map"
+import Detail from './components/Detail';
 
 function App() {
   return (
-    <div>
-      <Map />
-    </div>
+
+    <Routes>
+      <Route path='/' element={<Map />} />
+      <Route path='/detail' element={<Detail />} />
+    </Routes>
   );
 }
 

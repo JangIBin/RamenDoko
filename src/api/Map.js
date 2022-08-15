@@ -2,6 +2,7 @@ import React from 'react'
 import { useEffect, useMemo, useState } from "react";
 import axios from 'axios';
 import Carousel from "re-carousel";
+import { Link } from 'react-router-dom';
 
 import { GoogleMap, useLoadScript, Marker, InfoWindow, Circle, MarkerClusterer } from "@react-google-maps/api";
 import usePlacesAutocomplete, { getGeocode, getLatLng } from 'use-places-autocomplete';
@@ -207,26 +208,28 @@ function Map() {
                   setSelected(null);
               }}
           >
-          <div className='window_wrap'>
-            <div className='window_title'>
-              <div>{selected.name}</div>
-            </div>
-            <div className='window_middle'>
-              <img src={selected.photo.mobile.s} alt="img" />
+            <div className='window_wrap'>
+              <Link to="/detail" state={{data: selected}}>
+                <div className='window_title'>
+                  <div>{selected.name}</div>
+                </div>
+              </Link>
+              <div className='window_middle'>
+                <img src={selected.photo.mobile.s} alt="img" />
+                <div>
+                  <b>住所</b>
+                  <p>{selected.address}</p>
+                </div>
+              </div>
               <div>
-                <b>住所</b>
-                <p>{selected.address}</p>
+                <b>営業時間</b>
+                <p>{selected.open}</p>
+              </div>
+              <div>
+                <b>近隣の駅</b>
+                <p>{selected.access}</p>
               </div>
             </div>
-            <div>
-              <b>営業時間</b>
-              <p>{selected.open}</p>
-            </div>
-            <div>
-              <b>近隣の駅</b>
-              <p>{selected.access}</p>
-            </div>
-          </div>
           </InfoWindow>) : null
         }
 
@@ -242,7 +245,9 @@ function Map() {
             {
               shop && shop.map((item, index) => (
                 <div className='item_wrap' key={index}>
-                  <div className='item_title'>{item.name}</div>
+                  <Link to="/detail" state={{data: item}}>
+                    <div className='item_title'>{item.name}</div>
+                  </Link>
                   <div className='item_contents'>
                     <img src={item.photo.mobile.l} style={{width: 125, height: 125}} />
                     <div className='item_text'>
@@ -276,7 +281,6 @@ function Locate({ panTo }) {
             lat: position.coords.latitude,
             lng: position.coords.longitude,
           })
-          console.log(panTo)
           console.log(position)
         }, 
         () => null, 
