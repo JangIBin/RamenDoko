@@ -1,12 +1,13 @@
 import React from 'react'
 import { useEffect, useMemo, useState } from "react";
 import axios from 'axios';
+import Carousel from "re-carousel";
 
 import { GoogleMap, useLoadScript, Marker, InfoWindow, Circle, MarkerClusterer } from "@react-google-maps/api";
 import usePlacesAutocomplete, { getGeocode, getLatLng } from 'use-places-autocomplete';
 import { Combobox, ComboboxInput, ComboboxPopover, ComboboxList, ComboboxOption } from '@reach/combobox';
 
-import { FaAngleDown, FaTag, FaCompass } from "react-icons/fa";
+import { FaAngleUp, FaAngleDown, FaTag, FaCompass } from "react-icons/fa";
 
 import "@reach/combobox/styles.css";
 import "../assets/css/Map.css";
@@ -27,7 +28,7 @@ const containerStyle = {
   height: '100vh',
 };
 
-function Map({props}) {
+function Map() {
   const [shop, setShop] = useState();
   const [selected, setSelected] = useState(null);
   const [mapRange, setMapRange] = useState(2);
@@ -50,10 +51,6 @@ function Map({props}) {
   const panTo = React.useCallback(({lat, lng}) => {
     mapRef.current.panTo({lat, lng});
   }, []);
-
-  const sendData = () => {
-    props.setMobileShop(shop);
-  }
 
   useEffect(() =>{
 
@@ -203,8 +200,6 @@ function Map({props}) {
           }}
         />
 
-        {/* <Circle center={center} radius={1000} /> */}
-
         {selected ? (
           <InfoWindow 
               position={{lat: selected.lat, lng: selected.lng}}
@@ -235,24 +230,39 @@ function Map({props}) {
           </InfoWindow>) : null
         }
 
-      
       </GoogleMap>
 
       <div className='simplePage'>
-        <div className='simplePage_top'>
-          <FaAngleDown />
-        </div>
-        <div>
-          {
-            shop && shop.map((item, index) => (
-              <div key={index}>
-                {item.address}
-              </div>
-            ))
-          }
-        </div>
+        <input type="checkbox" id="toggleBtn" />
+        <label htmlFor='toggleBtn' className='toggleBtn'>
+          <FaAngleUp className='simple_icon' />
+        </label>
+        <div className='simple_content'>
+          <Carousel auto={false} axis="x" fool={true}>
+            {
+              shop && shop.map((item, index) => (
+                <div className='item_wrap' key={index}>
+                  <div className='item_title'>{item.name}</div>
+                  <div className='item_contents'>
+                    <img src={item.photo.mobile.l} style={{width: 125, height: 125}} />
+                    <div className='item_text'>
+                      <div className='item_text_title'>住所</div>
+                      <div className='item_text_address'>{item.address}</div>
+                      <div className='item_text_title'>営業時間</div>
+                      <div className='item_text_address'>{item.open}</div>
+                    </div>
+                  </div>
+                  <div className='item_access'>
+                    <div className='item_access_title'>近隣の駅</div>
+                    <div className='item_access_text'>{item.access}</div>
+                  </div>
+                </div>
+              ))
+            }
+          </Carousel>
+        </div>  
       </div>
-      
+
     </div>
   )
 }
