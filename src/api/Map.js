@@ -1,7 +1,6 @@
 import React from 'react'
 import { useEffect, useMemo, useState } from "react";
 import axios from 'axios';
-import Carousel from "re-carousel";
 import { Link } from 'react-router-dom';
 
 import { GoogleMap, useLoadScript, Marker, InfoWindow, MarkerClusterer } from "@react-google-maps/api";
@@ -12,6 +11,9 @@ import { FaAngleUp, FaAngleDown, FaTag, FaCompass } from "react-icons/fa";
 
 import "@reach/combobox/styles.css";
 import "../assets/css/Map.css";
+import "../assets/css/reset.css";
+
+import Carousel from "react-elastic-carousel";
 
 function Home() {
   const { isLoaded } = useLoadScript({
@@ -38,9 +40,11 @@ const windowStyle = {
 function Map() {
   const [shop, setShop] = useState();
   const [selected, setSelected] = useState(null);
+
   const [mapRange, setMapRange] = useState(2);
   const [latLocate, setLatLocate] = useState();
   const [lngLocate, setLngLocate] = useState();
+  
   const [windowSize, setWindowSize] = useState({
     winWidth: window.innerWidth,
   })
@@ -106,17 +110,97 @@ function Map() {
     }
 
 
-  },[latLocate, lngLocate, mapRange])
+  },[latLocate, lngLocate, mapRange]);
+
+  const breakPoints = [
+    { width: 800, itemsToShow: 1 },
+    { width: 801, itemsToShow: 4 }
+  ];
 
   return (
     <div className='Map'>
-
-      {/* <Search panTo={panTo} /> */}
 
       <div className='sideBar'>
         <div className='sideBar_title'>
           <img src={require('../assets/image/ramen.png')} alt="img" />
           <div className='title_text'>RamenDoko</div>
+        </div>
+
+        <div className='subMenu'>
+          <label htmlFor="touch"><span>検索半径</span></label>               
+          <input type="checkbox" id="touch" /> 
+          <ul className='slide'>
+            <li>
+              <button 
+                  onClick={() => {
+                    if(mapRange !== 1) {
+                      setMapRange(1);
+                    }
+                    console.log(mapRange);
+                  }}>300m</button>
+            </li>
+            <li>
+              <button onClick={() => {
+                    if(mapRange !== 2) {
+                      setMapRange(2);
+                    }
+                    console.log(mapRange);
+                }}>500m</button>
+            </li>
+            <li>
+              <button onClick={() => {
+                    if(mapRange !== 3) {
+                      setMapRange(3);
+                    }
+                    console.log(mapRange);
+                }}>1000m</button>
+            </li>
+            <li>
+              <button onClick={() => {
+                    if(mapRange !== 4) {
+                      setMapRange(4);
+                    }
+                    console.log(mapRange);
+                }}>2000m</button>
+            </li>
+            <li>
+              <button onClick={() => {
+                    if(mapRange !== 5) {
+                      setMapRange(5);
+                    }
+                    console.log(mapRange);
+                }}>3000m</button>
+            </li>
+          </ul>
+        </div>
+
+        <div className='subInfoMenu'>
+          <label htmlFor="touchInfo"><span>ラーメン屋見る</span></label>               
+          <input type="checkbox" id="touchInfo" /> 
+          <ul className='slide'>
+            <Carousel breakPoints={breakPoints} pagination={false} showArrows={false} >
+              {
+                shop && shop.map((item, index) => (
+                  <div className='subInfoMenu_item' key={index}>
+                    <div className='subInfoMenu_title'>{item.name}</div>
+                    <div className='subInfoMenu_contents'>
+                      <img src={item.photo.mobile.l} style={{width: 125, height: 125}} alt="img" />
+                      <div className='subInfoMenu_text'>
+                        <div className='subInfoMenu_text_title'>住所</div>
+                        <div className='subInfoMenu_text_address'>{item.address}</div>
+                        <div className='subInfoMenu_text_title'>営業時間</div>
+                        <div className='subInfoMenu_text_address'>{item.open}</div>
+                      </div>
+                    </div>
+                    <div className='subInfoMenu_access'>
+                      <div className='subInfoMenu_access_title'>近隣の駅</div>
+                      <div className='subInfoMenu_access_text'>{item.access}</div>
+                    </div>
+                  </div>
+                ))
+              }
+            </Carousel>
+          </ul>
         </div>
         
       </div>
@@ -174,7 +258,7 @@ function Map() {
           </ul>
         </div>
       </div>
-      
+      {/* <Search panTo={panTo} /> */}
       <Locate panTo={panTo} className='locate' />
 
       <GoogleMap
@@ -276,7 +360,7 @@ function Map() {
           <FaAngleUp className='simple_icon' />
         </label>
         <div className='simple_content'>
-          <Carousel auto={false} axis="x" fool={true}>
+          <Carousel breakPoints={breakPoints} pagination={false} showArrows={false} >
             {
               shop && shop.map((item, index) => (
                 <div className='item_wrap' key={index}>
@@ -336,7 +420,7 @@ function Search({ panTo }) {
   } = usePlacesAutocomplete({
     requestOptions: {
       location: { lat: () => 0, lng: () => 0 },
-      // radius: 200 * 1000,
+      radius: 200 * 1000,
     },
   });
 
