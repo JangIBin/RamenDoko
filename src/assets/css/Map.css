@@ -1,3 +1,38 @@
+body, h3 {
+    margin: 0;
+    padding: 0;
+}
+a {
+    text-decoration: none;
+}
+
+.sideBar {
+    background: rgb(5, 68, 104);
+    position: fixed;
+    top: 0;
+    left: 0;
+    min-width: 20%;
+    height: 100%;
+    padding: 20px 5px;
+    z-index: 10;
+    border: none;
+}
+.sideBar .sideBar_title {
+    display: flex;
+    justify-content: center;
+}
+.sideBar .sideBar_title .title_text {
+    margin-left: 15px;
+    font-size: 33px;
+    font-weight: bold;
+    color: white;
+}
+
+.sideBar .sideBar_title img {
+    width: 40px;
+    height: 40px;
+}
+
 .search {
     position: absolute;
     top: 1rem;
@@ -13,6 +48,120 @@
     font-size: 1.5rem;
     width: 100%;
 }
+/* 検索半径 */
+.container {
+    min-width: 100px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 4px 5px 0 #00000026;
+    position: absolute;
+    z-index: 10;
+    top: 20px;
+    left: 22%;
+}
+#dropdown {
+    left: 0;
+    visibility: hidden;
+    position: absolute;
+}
+.dropdownLabel {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px;
+}
+.dropdownLabel:hover {
+    cursor: pointer;
+}
+.content {
+    margin-top: 10px;
+    display: none;
+    position: absolute;
+    width: 100%;
+    left: 0;
+    border-radius: 5px;
+    background: white;
+    box-shadow: 0 4px 5px 0 #00000026;
+    text-align: center;
+}
+.content button {
+    border: none;
+    width: 100%;
+    height: 35px;
+}
+
+#dropdown:checked + label + div.content {
+    display: block;
+    border-top: 1px solid #00000026;
+}
+.cartIcon {
+    margin-right: 10px;
+    padding-top: 3px;
+}
+.caretIcon {
+    transition: transform 250ms ease-out;
+    margin-left: 10px;
+    padding-top: 4px;
+}
+#dropdown:checked + label > .caretIcon {
+    transform: rotate(-180deg);
+}
+
+.content ul {
+    list-style-type: none;
+    padding: 12px;
+    margin: 0;
+}
+.content ul li {
+    margin: 0.3rem 0;
+}
+/* 検索半径 end */
+/* locate */
+.locate {
+    position: absolute;
+    background-color: white;
+    box-shadow: 0 4px 5px 0 #00000026;
+    border-radius: 5px;
+    top: 20px;
+    right: 10px;
+    padding: 6px;
+    border: none;
+    z-index: 10;
+    cursor: pointer;
+}
+.locate .locateIcon {
+    width: 25px;
+    height: 25px;
+}
+/* locate end */
+
+.window_title {
+    text-align: center;
+    color: white;
+    background-color: rgb(5, 68, 104);
+    border-radius: 2px;
+    margin-bottom: 10px;
+    padding: 15px 0;
+    font-size: 23px;
+    font-weight: bold;
+}
+
+.window_middle {
+    display: flex;
+    margin-bottom: 10px;
+}
+.window_middle img {
+    margin-right: 10px;
+    width: 150px;
+    /* height: 150px; */
+}
+.window_middle b {
+    font-size: 18px;
+}
+
+.simplePage {
+    display: none;
+}
+
 
 @media only screen and (max-width: 800px) {
 
@@ -20,9 +169,11 @@
         margin: 0;
         padding: 0;
     }
-    
     a {
         text-decoration: none;
+    }
+    .sideBar {
+        display: none;
     }
 
     .container {
@@ -109,7 +260,7 @@
     .window_title {
         text-align: center;
         color: white;
-        background-color: #fa9857;
+        background-color: rgb(5, 68, 104);
         border-radius: 2px;
         margin-bottom: 10px;
         padding: 15px 0;
@@ -156,7 +307,7 @@
     }
     .simple_content .item_wrap .item_title {
         padding: 10px 0;
-        background-color: #fa9857;
+        background-color: rgb(5, 68, 104);
         color: white;
         font-size: 20px;
         font-weight: bold;
@@ -178,11 +329,8 @@
         font-size: 13px;
         padding-bottom: 5px;
     }
-    .simple_content .item_wrap .item_access {
-        
-    }
     .simple_content .item_wrap .item_access .item_access_title {
-        background-color: #fa9857;
+        background-color: rgb(5, 68, 104);
         color: white;
         padding: 10px 0;
         font-size: 20px;

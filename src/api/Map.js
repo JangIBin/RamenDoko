@@ -4,7 +4,7 @@ import axios from 'axios';
 import Carousel from "re-carousel";
 import { Link } from 'react-router-dom';
 
-import { GoogleMap, useLoadScript, Marker, InfoWindow, Circle, MarkerClusterer } from "@react-google-maps/api";
+import { GoogleMap, useLoadScript, Marker, InfoWindow, MarkerClusterer } from "@react-google-maps/api";
 import usePlacesAutocomplete, { getGeocode, getLatLng } from 'use-places-autocomplete';
 import { Combobox, ComboboxInput, ComboboxPopover, ComboboxList, ComboboxOption } from '@reach/combobox';
 
@@ -29,12 +29,27 @@ const containerStyle = {
   height: '100vh',
 };
 
+const windowStyle = {
+  width: '80%',
+  height: '100vh',
+  marginLeft: '20%'
+}
+
 function Map() {
   const [shop, setShop] = useState();
   const [selected, setSelected] = useState(null);
   const [mapRange, setMapRange] = useState(2);
   const [latLocate, setLatLocate] = useState();
   const [lngLocate, setLngLocate] = useState();
+  const [windowSize, setWindowSize] = useState({
+    winWidth: window.innerWidth,
+  })
+
+  const detectSize = () => {
+    setWindowSize({
+      winWidth: window.innerWidth,
+    })
+  }
 
   // ホットペッパー　api
   const KEY = '6fca1552a5354f20';
@@ -52,7 +67,7 @@ function Map() {
   const panTo = React.useCallback(({lat, lng}) => {
     mapRef.current.panTo({lat, lng});
   }, []);
-
+  
   useEffect(() =>{
 
     navigator.geolocation.getCurrentPosition((position) => {
@@ -85,6 +100,11 @@ function Map() {
         console.log(res.data.results.shop)
     })
 
+    window.addEventListener('resize', detectSize)
+    return () => {
+      window.removeEventListener('resize', detectSize)
+    }
+
 
   },[latLocate, lngLocate, mapRange])
 
@@ -92,6 +112,14 @@ function Map() {
     <div className='Map'>
 
       {/* <Search panTo={panTo} /> */}
+
+      <div className='sideBar'>
+        <div className='sideBar_title'>
+          <img src={require('../assets/image/ramen.png')} alt="img" />
+          <div className='title_text'>RamenDoko</div>
+        </div>
+        
+      </div>
 
       <div className="container">
         <input id="dropdown" type="checkbox" />
@@ -152,7 +180,11 @@ function Map() {
       <GoogleMap
         zoom={16}
         center={center}
-        mapContainerStyle={containerStyle}
+        mapContainerStyle={
+          windowSize.winWidth >= 800 ? windowStyle : containerStyle
+
+          // containerStyle
+        }
         onClick={(event) => {
           console.log(event);
           setSelected(null);
@@ -163,10 +195,13 @@ function Map() {
           mapTypeControl: false,
           zoomControl: false,
           streetViewControl: false,
-        }}  
+        }}
       >
 
-        <MarkerClusterer>
+        <MarkerClusterer
+
+        >
+        
           {(clusterer) => 
              shop &&
               shop.map((item, index) => (
@@ -249,7 +284,7 @@ function Map() {
                     <div className='item_title'>{item.name}</div>
                   </Link>
                   <div className='item_contents'>
-                    <img src={item.photo.mobile.l} style={{width: 125, height: 125}} />
+                    <img src={item.photo.mobile.l} style={{width: 125, height: 125}} alt="img" />
                     <div className='item_text'>
                       <div className='item_text_title'>住所</div>
                       <div className='item_text_address'>{item.address}</div>

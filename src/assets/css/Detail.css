@@ -15,7 +15,6 @@
     
     .header {
         display: flex;
-        width: 100%;
         padding: 30px 10px;
         background-color: #fa9857;
         color: white;
@@ -71,6 +70,12 @@
     .nav .data_wrap .urls_icon {
         margin-top: 2px;
         font-size: 21px;
+    }
+
+    .nav .data_wrap .time_icon {
+        margin-top: 4px;
+        width: 15px;
+        height: 15px;
     }
 
     .subInfo {
