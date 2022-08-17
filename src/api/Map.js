@@ -2,10 +2,9 @@ import React from 'react'
 import { useEffect, useMemo, useState } from "react";
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import Carousel from "react-elastic-carousel";
 
 import { GoogleMap, useLoadScript, Marker, InfoWindow, MarkerClusterer } from "@react-google-maps/api";
-import usePlacesAutocomplete, { getGeocode, getLatLng } from 'use-places-autocomplete';
-import { Combobox, ComboboxInput, ComboboxPopover, ComboboxList, ComboboxOption } from '@reach/combobox';
 
 import { FaAngleUp, FaAngleDown, FaTag, FaCompass } from "react-icons/fa";
 
@@ -13,12 +12,9 @@ import "@reach/combobox/styles.css";
 import "../assets/css/Map.css";
 import "../assets/css/reset.css";
 
-import Carousel from "react-elastic-carousel";
-
 function Home() {
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: "AIzaSyCOVIadCWc7aJkhQakeh_A38FRwwsxByvo",
-    libraries : ["places"],
   });
 
   if(!isLoaded) return <div>...Loading</div>;
@@ -59,7 +55,7 @@ function Map() {
   const KEY = '6fca1552a5354f20';
 
   // 현재 위치 불러오는 값
-  // const center = useMemo(() => ({lat:latLocate, lng:lngLocate}), [latLocate, lngLocate]);
+  // const center = useMemo(() => ({lat:parseFloat(latLocate), lng:parseFloat(lngLocate)}), [latLocate, lngLocate]);
 
   const center = useMemo(() => ({lat:35.669220, lng:139.761457}), []);
 
@@ -71,6 +67,13 @@ function Map() {
   const panTo = React.useCallback(({lat, lng}) => {
     mapRef.current.panTo({lat, lng});
   }, []);
+
+  const breakPoints = [
+    { width: 1, itemsToShow: 1 },
+    { width: 800, itemsToShow: 2 },
+    { width: 1200, itemsToShow: 3 },
+    { width: 1400, itemsToShow: 4 }
+  ];
   
   useEffect(() =>{
 
@@ -85,7 +88,7 @@ function Map() {
       baseURL: '/hotpepper/gourmet/v1'
     })
 
-    const fetchSearchData = async(mapRange) =>{
+    const fetchSearchData = async(mapRange, latLocate, lngLocate) =>{
       //大エリアコード=Z011(東京)のお店を検索
         return await hotpepper.get('',{
             params: {
@@ -94,6 +97,8 @@ function Map() {
                 count: 100,
                 lat: 35.669220,
                 lng: 139.761457,
+                // lat: parseFloat(latLocate),
+                // lng: parseFloat(lngLocate),
                 range: mapRange,
                 format: 'json'
             }
@@ -111,11 +116,8 @@ function Map() {
 
 
   },[latLocate, lngLocate, mapRange]);
-
-  const breakPoints = [
-    { width: 800, itemsToShow: 1 },
-    { width: 801, itemsToShow: 4 }
-  ];
+  console.log(latLocate);
+  console.log(lngLocate);
 
   return (
     <div className='Map'>
@@ -261,7 +263,7 @@ function Map() {
           </ul>
         </div>
       </div>
-      {/* <Search panTo={panTo} /> */}
+
       <Locate panTo={panTo} className='locate' />
 
       <GoogleMap
@@ -412,58 +414,6 @@ function Locate({ panTo }) {
       <FaCompass className='locateIcon' />
     </button>
   );
-}
-
-function Search({ panTo }) {
-  const {
-    ready, 
-    value, 
-    suggestions: {status, data}, 
-    setValue, 
-    clearSuggestions,
-  } = usePlacesAutocomplete({
-    requestOptions: {
-      location: { lat: () => 0, lng: () => 0 },
-      radius: 200 * 1000,
-    },
-  });
-
-  return (
-    <div className='search'>
-      <Combobox 
-        onSelect={async (address) => {
-          setValue(address, false);
-          clearSuggestions();
-          try {
-            const results = await getGeocode({ address });
-            const { lat, lng } = await getLatLng(results[0]);
-            panTo({ lat, lng });
-          } catch (error) {
-            console.log(error);
-          }
-          // console.log(address);
-        }}
-      >
-        <ComboboxInput 
-          value={value} 
-          onChange={(e) => {
-            setValue(e.target.value);
-          }}
-          disabled={!ready}
-          placeholder="Enter an address" 
-        />
-        <ComboboxPopover>
-          <ComboboxList>
-            {status === "OK" && 
-              data.map(({id, description}) => (
-                <ComboboxOption key={id} value={description} />
-            ))}
-          </ComboboxList>
-        </ComboboxPopover>
-      </Combobox>
-    </div>
-    
-  );  
 }
 
 
