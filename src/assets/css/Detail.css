@@ -1,5 +1,132 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: rgb(221, 221, 221);
+}
+.Detail {
+    margin: 0 20%;
+    min-width: 550px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    box-shadow: 0 4px 5px 0 #00000026;
+}
+.detail_wrap {
+    padding-bottom: 2px;
+}
+.main_wrap {
+    margin-top: 5px;
+}
+.header {
+    display: flex;
+    width: 100%;
+    padding: 30px 0;
+    background-color: #fa9857;
+    color: white;
+    font-weight: bold;
+    font-size: 27px;
+    justify-content: center;
 
+}
+.header img {
+    width: 35px;
+    height: 35px;
+    margin-right: 15px;
+    text-align: center;
+}
 
+.main_image {
+    margin: 0 5px 5px;
+    padding: 1px 5px;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    border-radius: 5px;
+}
+.main_image img {
+    width: 50%;
+    margin-left: 25%;
+    border-radius: 5px;
+    
+}
+
+.nav {
+    margin: 0px 5px 5px;
+    padding: 12px;
+    background-color: white;
+    border-radius: 5px;
+}
+.nav .data_wrap {
+    display: flex;
+    margin-bottom: 25px;
+}
+.nav .data_wrap .address_text {
+    margin-left: 10px;
+    font-weight: bold;
+}
+.nav .data_wrap .address_icon {
+    margin-top: 3px;
+    font-size: 17px;
+}
+.nav .data_wrap .open_text {
+    margin-left: 11px;
+    font-weight: bold;
+}
+.nav .data_wrap .open_icon {
+    margin-top: 2px;
+    font-size: 40px;
+    height: 20px;
+}
+.nav .data_wrap .urls_text {
+    margin-left: 10px;
+    font-weight: bold;
+}
+.nav .data_wrap .urls_icon {
+    margin-top: 2px;
+    font-size: 16px;
+}
+
+.nav .data_wrap .time_icon {
+    margin-top: 4px;
+    width: 15px;
+    height: 15px;
+}
+
+.subInfo {
+    margin: 0px 5px 5px;
+    padding: 0 20px 20px;
+    background-color: white;
+    border-radius: 5px;
+}
+.subInfo .subInfo_title {
+    padding: 20px 0 30px;
+    font-size: 18px;
+    font-weight: bold;
+}
+.subInfo .subInfo_wrap {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 35px;
+}
+.subInfo .subInfo_data_wrap {
+    text-align: center;
+    margin: 0 40px;
+}
+.subInfo .subInfo_data_wrap .wifi_icon {
+    font-size: 35px;
+}
+.subInfo .subInfo_data_wrap .subInfo_img {
+    width: 35px;
+    height: 35px;
+}
+.subInfo .subInfo_data_wrap {
+    text-align: center;
+}
+.subInfo .subInfo_data_wrap .card_icon {
+    font-size: 35px;
+}
+.subInfo .subInfo_footer .subInfo_access {
+    font-size: 17px;
+}
 
 
 
@@ -12,11 +139,19 @@
         padding: 0;
         background-color: rgb(221, 221, 221);
     }
-    
+    .Detail {
+        margin: 0;
+        min-width: 100%;
+        border: none;
+    }
+    .main_wrap {
+        display: block;
+    }
     .header {
         display: flex;
-        padding: 30px 10px;
+        padding: 30px 0;
         background-color: #fa9857;
+        width: 100%;
         color: white;
         font-weight: bold;
         font-size: 27px;
@@ -33,12 +168,13 @@
         padding: 5px;
     }
     .main_image img {
+        margin: 0;
         width: 100%;
         border-radius: 5px;
     }
     .nav {
         margin: 0px 5px 5px;
-        padding: 20px;
+        padding: 10px;
         background-color: white;
         border-radius: 5px;
     }
@@ -85,7 +221,7 @@
         border-radius: 5px;
     }
     .subInfo .subInfo_title {
-        padding: 10px 0 30px;
+        padding: 20px 0 30px;
         font-size: 18px;
         font-weight: bold;
     }

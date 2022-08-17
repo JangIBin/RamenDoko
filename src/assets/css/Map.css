@@ -8,7 +8,7 @@ a {
 
 /* sideBar */
 .sideBar {
-    background: rgb(5, 68, 104);
+    background: #F5954B;
     position: fixed;
     top: 0;
     left: 0;
@@ -80,6 +80,8 @@ a {
     padding: 20px;
     border: none;
     width: 100%;
+    background: white;
+    border-bottom: 1px solid #F5954B;
 }
 .subMenu .slide button:hover {
     background: #2d2f31;
@@ -148,6 +150,7 @@ a {
     padding: 25px;
     border: none;
     width: 100%;
+    border-radius: 5px;
 }
 .subInfoMenu .slide button:hover {
     background: #2d2f31;
@@ -174,7 +177,7 @@ a {
 }
 .subInfoMenu .slide .subInfoMenu_item .subInfoMenu_title {
     padding: 15px 0;
-    background-color: rgb(5, 68, 104);
+    background-color: #F5954B;
     color: white;
     font-size: 20px;
     font-weight: bold;
@@ -188,7 +191,7 @@ a {
     margin-left: 5px;
 }
 .subInfoMenu .slide .subInfoMenu_item .subInfoMenu_text .subInfoMenu_text_title {
-    border-bottom: 2px solid rgb(5, 68, 104);
+    border-bottom: 2px solid #F5954B;
     font-weight: bold;
     font-size: 17px;
     padding-bottom: 5px;
@@ -199,7 +202,7 @@ a {
     padding-bottom: 5px;
 }
 .subInfoMenu .slide .subInfoMenu_item .subInfoMenu_access_title {
-    background-color: rgb(5, 68, 104);
+    background-color: #F5954B;
     color: white;
     padding: 8px 0;
     font-size: 18px;
@@ -256,7 +259,7 @@ a {
 .window_title {
     text-align: center;
     color: white;
-    background-color: rgb(5, 68, 104);
+    background-color: #F5954B;
     border-radius: 2px;
     margin-bottom: 10px;
     padding: 15px 0;
@@ -273,8 +276,17 @@ a {
     width: 150px;
     /* height: 150px; */
 }
-.window_middle b {
-    font-size: 18px;
+.window_middle .middle_title {
+    font-size: 19px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+.window_footer {
+    margin-bottom: 10px;
+}
+.window_footer .footer_subTitle {
+    font-size: 15px;
+    font-weight: bold;
 }
 
 .simplePage {
@@ -380,7 +392,7 @@ a {
     .window_title {
         text-align: center;
         color: white;
-        background-color: rgb(5, 68, 104);
+        background-color: #F5954B;
         border-radius: 2px;
         margin-bottom: 10px;
         padding: 15px 0;
@@ -427,7 +439,7 @@ a {
     }
     .simple_content .item_wrap .item_title {
         padding: 10px 0;
-        background-color: rgb(5, 68, 104);
+        background-color: #F5954B;
         color: white;
         font-size: 20px;
         font-weight: bold;
@@ -450,7 +462,7 @@ a {
         padding-bottom: 5px;
     }
     .simple_content .item_wrap .item_access .item_access_title {
-        background-color: rgb(5, 68, 104);
+        background-color: #F5954B;
         color: white;
         padding: 10px 0;
         font-size: 20px;

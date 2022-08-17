@@ -127,7 +127,7 @@ function Map() {
         </div>
 
         <div className='subMenu'>
-          <label htmlFor="touch"><span>検索半径</span></label>               
+          <label htmlFor="touch"><span>検索半径</span></label>
           <input type="checkbox" id="touch" /> 
           <ul className='slide'>
             <li>
@@ -179,10 +179,12 @@ function Map() {
           <input type="checkbox" id="touchInfo" /> 
           <ul className='slide'>
             <Carousel breakPoints={breakPoints} pagination={false} showArrows={false} >
-              {
+              { shop !== null ? (
                 shop && shop.map((item, index) => (
                   <div className='subInfoMenu_item' key={index}>
-                    <div className='subInfoMenu_title'>{item.name}</div>
+                    <Link to="/detail" state={{data: item }}>
+                      <div className='subInfoMenu_title'>{item.name}</div>
+                    </Link>
                     <div className='subInfoMenu_contents'>
                       <img src={item.photo.mobile.l} style={{width: 125, height: 125}} alt="img" />
                       <div className='subInfoMenu_text'>
@@ -198,6 +200,7 @@ function Map() {
                     </div>
                   </div>
                 ))
+                ) : <>データなし</> 
               }
             </Carousel>
           </ul>
@@ -336,16 +339,16 @@ function Map() {
               <div className='window_middle'>
                 <img src={selected.photo.mobile.s} alt="img" />
                 <div>
-                  <b>住所</b>
+                  <div className='middle_title'>住所</div>
                   <p>{selected.address}</p>
                 </div>
               </div>
-              <div>
-                <b>営業時間</b>
+              <div className='window_footer'>
+                <div className='footer_subTitle'>営業時間</div>
                 <p>{selected.open}</p>
               </div>
-              <div>
-                <b>近隣の駅</b>
+              <div className='window_footer'>
+                <div className='footer_subTitle'>近隣の駅</div>
                 <p>{selected.access}</p>
               </div>
             </div>
@@ -361,7 +364,7 @@ function Map() {
         </label>
         <div className='simple_content'>
           <Carousel breakPoints={breakPoints} pagination={false} showArrows={false} >
-            {
+            { shop !== null ? (
               shop && shop.map((item, index) => (
                 <div className='item_wrap' key={index}>
                   <Link to="/detail" state={{data: item}}>
@@ -382,6 +385,7 @@ function Map() {
                   </div>
                 </div>
               ))
+              ) : <>データなし</>
             }
           </Carousel>
         </div>  
