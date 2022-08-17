@@ -8,7 +8,6 @@ import { GoogleMap, useLoadScript, Marker, InfoWindow, MarkerClusterer } from "@
 
 import { FaAngleUp, FaAngleDown, FaTag, FaCompass } from "react-icons/fa";
 
-import "@reach/combobox/styles.css";
 import "../assets/css/Map.css";
 import "../assets/css/reset.css";
 
