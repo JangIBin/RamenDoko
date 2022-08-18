@@ -62,9 +62,9 @@ function Map() {
   const KEY = '6fca1552a5354f20';
 
   // 현재 위치 불러오는 값
-  const center = useMemo(() => ({lat:parseFloat(latLocate), lng:parseFloat(lngLocate)}), [latLocate, lngLocate]);
+  // const center = useMemo(() => ({lat:parseFloat(latLocate), lng:parseFloat(lngLocate)}), [latLocate, lngLocate]);
 
-  // const center = useMemo(() => ({lat:35.669220, lng:139.761457}), []);
+  const center = useMemo(() => ({lat:35.669220, lng:139.761457}), []);
 
   const mapRef = React.useRef();
   const onMapLoad = React.useCallback((map) => {
@@ -102,10 +102,10 @@ function Map() {
                 key:KEY,
                 keyword: 'ラーメン',
                 count: 100,
-                // lat: 35.669220,
-                // lng: 139.761457,
-                lat: parseFloat(latLocate),
-                lng: parseFloat(lngLocate),
+                lat: 35.669220,
+                lng: 139.761457,
+                // lat: parseFloat(latLocate),
+                // lng: parseFloat(lngLocate),
                 range: mapRange,
                 format: 'json'
             }
