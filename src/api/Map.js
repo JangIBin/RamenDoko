@@ -124,6 +124,7 @@ function Map() {
 
   },[latLocate, lngLocate, mapRange]);
 
+  console.log(shop);
 
   return (
     <div className='Map'>

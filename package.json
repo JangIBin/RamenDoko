@@ -45,9 +45,9 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://webservice.recruit.co.jp",
   "devDependencies": {
     "gh-pages": "^4.0.0"
   },
-  "homepage": "https://jangibin.github.io/RamenDoko/"
+  "homepage": "https://jangibin.github.io/RamenDoko/",
+  "proxy": "http://webservice.recruit.co.jp"
 }
