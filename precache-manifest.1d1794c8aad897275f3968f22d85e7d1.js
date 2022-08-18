@@ -52,7 +52,7 @@ self.__precacheManifest = [
     "url": "/RamenDoko/static/media/ramen_noodle.38f51ef8.png"
   },
   {
-    "revision": "745d908a2b6dfea51481cc23602f85e3",
+    "revision": "81f3c923c312d349c49573ab86ba3550",
     "url": "/RamenDoko/index.html"
   }
 ];
