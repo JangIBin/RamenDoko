@@ -48,5 +48,6 @@
   "proxy": "http://webservice.recruit.co.jp",
   "devDependencies": {
     "gh-pages": "^4.0.0"
-  }
+  },
+  "homepage": "https://jangibin.github.io/RamenDoko/"
 }
