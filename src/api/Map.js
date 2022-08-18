@@ -277,8 +277,6 @@ function Map() {
         center={center}
         mapContainerStyle={
           windowSize.winWidth >= 800 ? windowStyle : containerStyle
-
-          // containerStyle
         }
         onClick={(event) => {
           console.log(event);
