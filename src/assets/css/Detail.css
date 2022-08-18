@@ -1,3 +1,13 @@
+@font-face {
+    font-family: "gomarice_mukasi_mukasi";
+    src: url('../font/gomarice_mukasi_mukasi.ttf') format('truetype');
+    font-weight: normal;
+}
+
+body {
+    font-family: 'gomarice_mukasi_mukasi';
+}
+
 body {
     margin: 0;
     padding: 0;

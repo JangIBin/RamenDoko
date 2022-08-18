@@ -16,7 +16,15 @@ function Home() {
     googleMapsApiKey: "AIzaSyCOVIadCWc7aJkhQakeh_A38FRwwsxByvo",
   });
 
-  if(!isLoaded) return <div>...Loading</div>;
+  if(!isLoaded) return (
+    <div style={{
+      textAlign:'center',
+      lineHeight:50
+    }}>
+      <div>...Loading</div>
+    </div>
+    
+  );
   return <Map />;
 }
 
@@ -213,7 +221,7 @@ function Map() {
         <input id="dropdown" type="checkbox" />
         <label className="dropdownLabel" htmlFor="dropdown">
           <FaTag className='cartIcon' />
-          <div>検索半径</div>
+          <div className='dropdownLabel_text'>検索半径</div>
           <FaAngleDown className="caretIcon" />
         </label>
         <div className="content">

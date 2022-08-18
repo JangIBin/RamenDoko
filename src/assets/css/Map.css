@@ -1,3 +1,13 @@
+@font-face {
+    font-family: "gomarice_mukasi_mukasi";
+    src: url('../font/gomarice_mukasi_mukasi.ttf') format('truetype');
+    font-weight: normal;
+}
+
+body, .window_wrap {
+    font-family: 'gomarice_mukasi_mukasi';
+}
+
 body, h3, ul {
     margin: 0;
     padding: 0;
@@ -8,7 +18,7 @@ a {
 
 /* sideBar */
 .sideBar {
-    background: #F5954B;
+    background: #fa9857 ;
     position: fixed;
     top: 0;
     left: 0;
@@ -81,7 +91,7 @@ a {
     border: none;
     width: 100%;
     background: white;
-    border-bottom: 1px solid #F5954B;
+    border-bottom: 1px solid #fa9857;
 }
 .subMenu .slide button:hover {
     background: #2d2f31;
@@ -177,7 +187,7 @@ a {
 }
 .subInfoMenu .slide .subInfoMenu_item .subInfoMenu_title {
     padding: 15px 0;
-    background-color: #F5954B;
+    background-color: #FA7E48;
     color: white;
     font-size: 20px;
     font-weight: bold;
@@ -191,7 +201,7 @@ a {
     margin-left: 5px;
 }
 .subInfoMenu .slide .subInfoMenu_item .subInfoMenu_text .subInfoMenu_text_title {
-    border-bottom: 2px solid #F5954B;
+    border-bottom: 2px solid #FA7E48;
     font-weight: bold;
     font-size: 17px;
     padding-bottom: 5px;
@@ -199,10 +209,10 @@ a {
 }
 .subInfoMenu .slide .subInfoMenu_item .subInfoMenu_text .subInfoMenu_text_address {
     font-size: 13px;
-    padding-bottom: 5px;
+    padding-bottom: 8px;
 }
 .subInfoMenu .slide .subInfoMenu_item .subInfoMenu_access_title {
-    background-color: #F5954B;
+    background-color: #FA7E48;
     color: white;
     padding: 8px 0;
     font-size: 18px;
@@ -259,12 +269,11 @@ a {
 .window_title {
     text-align: center;
     color: white;
-    background-color: #F5954B;
+    background-color: #FA7E48;
     border-radius: 2px;
     margin-bottom: 10px;
     padding: 15px 0;
     font-size: 23px;
-    font-weight: bold;
 }
 
 .window_middle {
@@ -287,6 +296,7 @@ a {
 .window_footer .footer_subTitle {
     font-size: 15px;
     font-weight: bold;
+    margin-bottom: 7px;
 }
 
 .simplePage {
@@ -295,6 +305,15 @@ a {
 
 
 @media only screen and (max-width: 800px) {
+    @font-face {
+        font-family: "gomarice_mukasi_mukasi";
+        src: url('../font/gomarice_mukasi_mukasi.ttf') format('truetype');
+        font-weight: normal;
+    }
+    
+    body {
+        font-family: 'gomarice_mukasi_mukasi';
+    }
 
     body, h3 {
         margin: 0;
@@ -328,6 +347,9 @@ a {
         justify-content: space-between;
         padding: 8px;
     }
+    .dropdownLabel_text {
+        margin-top: 3px;
+    }
     .dropdownLabel:hover {
         cursor: pointer;
     }
@@ -346,7 +368,7 @@ a {
         padding: 14px 0;
         border: none;
         width: 100%;
-        background: #F5954B;
+        background: #FA7E48;
         font-weight: bold;
         font-size: 17px;
         color: white;
@@ -396,12 +418,11 @@ a {
     .window_title {
         text-align: center;
         color: white;
-        background-color: #F5954B;
+        background-color: #FA7E48;
         border-radius: 2px;
         margin-bottom: 10px;
         padding: 15px 0;
         font-size: 23px;
-        font-weight: bold;
     }
 
     .window_middle {
@@ -443,7 +464,7 @@ a {
     }
     .simple_content .item_wrap .item_title {
         padding: 10px 0;
-        background-color: #F5954B;
+        background-color: #FA7E48;
         color: white;
         font-size: 20px;
         font-weight: bold;
@@ -463,10 +484,10 @@ a {
     }
     .simple_content .item_wrap .item_contents .item_text .item_text_address {
         font-size: 13px;
-        padding-bottom: 5px;
+        padding-bottom: 8px;
     }
     .simple_content .item_wrap .item_access .item_access_title {
-        background-color: #F5954B;
+        background-color: #FA7E48;
         color: white;
         padding: 10px 0;
         font-size: 20px;
