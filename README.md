@@ -1,10 +1,11 @@
 # 簡易仕様書
 ---
 
-## [作者]
+## 作者
 **ジャンイビン**
----
-## [アプリ名]
+
+
+## アプリ名
 **RamenDoko**
 
 ---
@@ -23,7 +24,7 @@
 ### 該当プロジェクトのリポジトリ URL（GitHub,GitLab など Git ホスティングサービスを利用されている場合）
 > https://github.com/xxxx
 
-## [開発環境]
+## 開発環境
 ---
 ### 開発環境
 - Visual Studio Code
@@ -31,7 +32,7 @@
 ### 開発言語
 - React 18.2.0
 
-## [動作対象端末・OS]
+## 動作対象端末・OS
 ---
 ### 動作対象OS
 - Chrome
@@ -39,7 +40,7 @@
 ## 開発期間
 - 14日間
 
-## [アプリケーション機能]
+## アプリケーション機能
 ---
 ### 機能一覧
 - レストラン検索：ホットペッパーグルメサーチAPIを使用して、現在地周辺の飲食店を検索する。
@@ -61,14 +62,14 @@
 - 検索条件をもう少し豊富にしたい。
 
 
-## [エラー]
+## エラー
 ---
-react-elastic-carousel
+#### react-elastic-carousel
 - ClassComponentに特化しており、FunctionComponentにエラーが発生する。
 
-Error: A listener
+#### Error: A listener
 - Chrome拡張プログラムで生成される交差出典要請エラーです。
 
-Geolocation: NaN is not an accepted value
+#### Geolocation: NaN is not an accepted value
 - 自分の位置を読み込む前にデータが空いているために発生するエラーです。
 
