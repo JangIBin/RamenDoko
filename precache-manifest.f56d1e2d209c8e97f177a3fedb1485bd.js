@@ -1,19 +1,19 @@
 self.__precacheManifest = [
   {
-    "revision": "0fef1ecbd745d77a7380",
-    "url": "/static/css/main.96cf57e5.chunk.css"
+    "revision": "ee37812f0fb319d9acf6",
+    "url": "/static/css/main.78bcc53d.chunk.css"
   },
   {
-    "revision": "0fef1ecbd745d77a7380",
-    "url": "/static/js/main.3f89d290.chunk.js"
+    "revision": "ee37812f0fb319d9acf6",
+    "url": "/static/js/main.23679155.chunk.js"
   },
   {
     "revision": "42ac5946195a7306e2a5",
     "url": "/static/js/runtime~main.a8a9905a.js"
   },
   {
-    "revision": "d4478b44f52b8d596d1f",
-    "url": "/static/js/2.5300d7a7.chunk.js"
+    "revision": "b836ffcd69eda889b2da",
+    "url": "/static/js/2.29ecbf70.chunk.js"
   },
   {
     "revision": "7faf47bbec44a27765e40b74b41e3988",
@@ -22,6 +22,10 @@ self.__precacheManifest = [
   {
     "revision": "7c7f3f800409b45947685133337a5da7",
     "url": "/static/media/time.7c7f3f80.png"
+  },
+  {
+    "revision": "3eb7e3510c9cd44d5c3c66f15c62fa4c",
+    "url": "/static/media/gomarice_mukasi_mukasi.3eb7e351.ttf"
   },
   {
     "revision": "29479ba0435741580ca9f4a467be6207",
@@ -44,7 +48,11 @@ self.__precacheManifest = [
     "url": "/static/media/pet.182d1d28.png"
   },
   {
-    "revision": "f4fa6072430662eecd821abe70f901a0",
+    "revision": "38f51ef87e89128312d4be6e9b7d9d74",
+    "url": "/static/media/ramen_noodle.38f51ef8.png"
+  },
+  {
+    "revision": "4f14302a34dd073391cd92d9b30e6ee0",
     "url": "/index.html"
   }
 ];
