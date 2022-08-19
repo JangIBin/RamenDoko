@@ -17,12 +17,8 @@
 - ウェブとモバイルuiを作ってウェブとモバイル環境の両方を利用できる。
 - 周辺の店をマーカーとスライド式で見せてくれる。
 
-### 公開したアプリの URL（Store にリリースしている場合）
-
-> https://apps.apple.com/jp/app/xxxx
-
-### 該当プロジェクトのリポジトリ URL（GitHub,GitLab など Git ホスティングサービスを利用されている場合）
-> https://github.com/xxxx
+### 該当プロジェクトのリポジトリ URL
+> https://github.com/JangIBin/RamenDoko
 
 ## 開発環境
 ---

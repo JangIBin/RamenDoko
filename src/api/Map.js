@@ -62,9 +62,10 @@ function Map() {
   const KEY = '6fca1552a5354f20';
 
   // 현재 위치 불러오는 값
-  // const center = useMemo(() => ({lat:parseFloat(latLocate), lng:parseFloat(lngLocate)}), [latLocate, lngLocate]);
+  const center = useMemo(() => ({lat:parseFloat(latLocate), lng:parseFloat(lngLocate)}), [latLocate, lngLocate]);
 
-  const center = useMemo(() => ({lat:35.669220, lng:139.761457}), []);
+  // 位置が呼び出せない場合は、下のコードを使用してください。
+  // const center = useMemo(() => ({lat:35.669220, lng:139.761457}), []);
 
   const mapRef = React.useRef();
   const onMapLoad = React.useCallback((map) => {
@@ -93,10 +94,6 @@ function Map() {
 
     const hotpepper = axios.create ({
       baseURL: 'hotpepper/gourmet/v1/',
-      headers:  {
-        'Access-Control-Allow-Origin' : '*',
-        'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-      }
     })
 
     const fetchSearchData = async(mapRange, latLocate, lngLocate) =>{
@@ -106,10 +103,11 @@ function Map() {
                 key:KEY,
                 keyword: 'ラーメン',
                 count: 100,
-                lat: 35.669220,
-                lng: 139.761457,
-                // lat: parseFloat(latLocate),
-                // lng: parseFloat(lngLocate),
+                // 位置が呼び出せない場合は、下のコードを使用してください。
+                // lat: 35.669220,
+                // lng: 139.761457,
+                lat: parseFloat(latLocate),
+                lng: parseFloat(lngLocate),
                 range: mapRange,
                 format: 'json'
             }
@@ -128,7 +126,7 @@ function Map() {
 
   },[latLocate, lngLocate, mapRange]);
 
-  console.log(shop);
+  console.log(latLocate, lngLocate);
 
   return (
     <div className='Map'>
