@@ -92,7 +92,11 @@ function Map() {
     });
 
     const hotpepper = axios.create ({
-      baseURL: '/hotpepper/gourmet/v1'  
+      baseURL: 'hotpepper/gourmet/v1/',
+      headers:  {
+        'Access-Control-Allow-Origin' : '*',
+        'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+      }
     })
 
     const fetchSearchData = async(mapRange, latLocate, lngLocate) =>{
