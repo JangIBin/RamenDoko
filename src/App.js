@@ -10,8 +10,8 @@ function App() {
   return (
     <BrowserRouter basename='/RamenDoko'>
       <Routes>
-          <Route path='/' element={<Start />} />
-          <Route path='/map' element={<Map />} />
+          <Route path='/' element={<Map />} />
+          {/* <Route path='/map' element={<Map />} /> */}
           <Route path='/detail' element={<Detail />} />
        </Routes>
     </BrowserRouter>
