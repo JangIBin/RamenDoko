@@ -8,7 +8,7 @@ import Start from './components/Start';
 
 function App() {
   return (
-    <BrowserRouter >
+    <BrowserRouter basename='/RamenDoko'>
       <Routes>
           <Route path='/' element={<Start />} exact />
           <Route path='/map' element={<Map />} />
