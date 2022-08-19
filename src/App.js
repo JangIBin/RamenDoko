@@ -1,5 +1,5 @@
 import React from 'react'
-import { HashRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css'; 
 
 import Map from "./api/Map"
@@ -8,13 +8,13 @@ import Start from './components/Start';
 
 function App() {
   return (
-    <HashRouter>
+    <BrowserRouter basename='/RamenDoko'>
       <Routes>
           <Route path='/' element={<Start />} />
           <Route path='/map' element={<Map />} />
           <Route path='/detail' element={<Detail />} />
        </Routes>
-    </HashRouter>
+    </BrowserRouter>
     
   );
 }
