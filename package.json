@@ -1,6 +1,7 @@
 {
   "name": "fenrir",
   "version": "0.1.0",
+  "homepage": "https://jangibin.github.io/RamenDoko/",
   "private": true,
   "dependencies": {
     "@react-google-maps/api": "^2.12.1",
@@ -48,6 +49,6 @@
   "devDependencies": {
     "gh-pages": "^4.0.0"
   },
-  "homepage": "https://jangibin.github.io/RamenDoko/",
-  "proxy": "http://webservice.recruit.co.jp"
+  
+  "proxy": "https://webservice.recruit.co.jp"
 }
