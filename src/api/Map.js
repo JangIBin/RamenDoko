@@ -92,7 +92,7 @@ function Map() {
     });
 
     const hotpepper = axios.create ({
-      baseURL: '/hotpepper/gourmet/v1'
+      baseURL: '/hotpepper/gourmet/v1'  
     })
 
     const fetchSearchData = async(mapRange, latLocate, lngLocate) =>{
