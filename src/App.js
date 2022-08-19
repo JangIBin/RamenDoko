@@ -10,7 +10,7 @@ function App() {
   return (
     <HashRouter>
       <Routes>
-          <Route path='/' element={<Start />} exact />
+          <Route path='/' element={<Start />} />
           <Route path='/map' element={<Map />} />
           <Route path='/detail' element={<Detail />} />
        </Routes>
