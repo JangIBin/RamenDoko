@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    "revision": "23c74248f3acca133e31",
+    "revision": "cdd168d833031c0239ee",
     "url": "/RamenDoko/static/css/main.2bd0fb8c.chunk.css"
   },
   {
-    "revision": "23c74248f3acca133e31",
-    "url": "/RamenDoko/static/js/main.d72c2e52.chunk.js"
+    "revision": "cdd168d833031c0239ee",
+    "url": "/RamenDoko/static/js/main.5057cf37.chunk.js"
   },
   {
     "revision": "20f7d7c4a8c892863fb2",
@@ -52,7 +52,7 @@ self.__precacheManifest = [
     "url": "/RamenDoko/static/media/ramen_noodle.38f51ef8.png"
   },
   {
-    "revision": "16be009ad77d7523a9714ce22931f5d2",
+    "revision": "f66893a43b06ac23c202f23a895a0093",
     "url": "/RamenDoko/index.html"
   }
 ];

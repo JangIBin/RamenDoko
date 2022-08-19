@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/RamenDoko/precache-manifest.d8478715218d4c316fed876a9466284d.js"
+  "/RamenDoko/precache-manifest.d02cb5d295b24c210d64fe1cad14d921.js"
 );
 
 workbox.clientsClaim();
