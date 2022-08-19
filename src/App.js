@@ -8,7 +8,7 @@ import Start from './components/Start';
 
 function App() {
   return (
-    <HashRouter>
+    <HashRouter basename='/RamenDoko'>
       <Routes>
           <Route path='/' element={<Start />} />
           <Route path='/map' element={<Map />} />
