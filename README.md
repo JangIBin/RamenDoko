@@ -69,3 +69,5 @@
 #### Geolocation: NaN is not an accepted value
 - 自分の位置を読み込む前にデータが空いているために発生するエラーです。
 
+### GitHub Hosting
+- ホスティングアドレスからホットペッパーAPIを読み込むのにエラーがあり、ホスティングできませんでした。
