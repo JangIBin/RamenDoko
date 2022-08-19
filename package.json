@@ -1,7 +1,7 @@
 {
   "name": "fenrir",
   "version": "0.1.0",
-  "homepage": "https://jangibin.github.io/RamenDoko/#/",
+  "homepage": "https://jangibin.github.io/RamenDoko",
   "proxy": "http://webservice.recruit.co.jp/",
   "private": true,
   "dependencies": {
